@@ -42,8 +42,22 @@ function preload() {
     game.load.image('Sakib1', 'assets/images/Sakib1.png');
 	game.load.image('Sakib2', 'assets/images/Sakib2.png');
 	game.load.image('Sakib3', 'assets/images/Sakib3.png');
+	game.load.image('Taskeen1', 'assets/images/Taskeen1.png');
+	game.load.image('Taskeen2', 'assets/images/Taskeen2.png');
+	game.load.image('Taskeen3', 'assets/images/Taskeen3.png');
+	game.load.image('Tousif1', 'assets/images/Tousif1.png');
+	game.load.image('Tousif2', 'assets/images/Tousif2.png');
+	game.load.image('Tousif3', 'assets/images/Tousif3.png');
+	game.load.image('Shoaib1', 'assets/images/Shoaib1.png');
+	game.load.image('Shoaib2', 'assets/images/Shoaib2.png');
+	game.load.image('Shoaib3', 'assets/images/Shoaib3.png');
+	game.load.image('Nidhi1', 'assets/images/Nidhi1.png');
+	game.load.image('Nidhi2', 'assets/images/Nidhi2.png');
+	game.load.image('Nidhi3', 'assets/images/Nidhi3.png');
+	game.load.image('Navin1', 'assets/images/Navin1.png');
+	game.load.image('Navin2', 'assets/images/Navin2.png');
+	game.load.image('Navin3', 'assets/images/Navin3.png');
 		game.load.image('side rim', 'assets/images/side_rim.png');
-		game.load.image('front rim2', 'assets/images/mouthX.png');
 
 		game.load.image('win0', 'assets/images/win0.png');
 		game.load.image('win1', 'assets/images/win1.png');
@@ -141,6 +155,15 @@ function create() {
 
 	createBall();
 
+	face.destroy();
+
+	if(current_score < 2) face = game.add.sprite(120, 50, 'Sakib1');
+	else if(current_score < 4) face = game.add.sprite(120, 50, 'Taskeen1');
+	else if(current_score < 6) face = game.add.sprite(120, 50, 'Nidhi1');
+	else if(current_score < 8) face = game.add.sprite(120, 50, 'Tousif1');
+	else if(current_score < 10) face = game.add.sprite(120, 50, 'Shoaib1');
+	else if(current_score < 12) face = game.add.sprite(120, 50, 'Navin1');
+
 	cursors = game.input.keyboard.createCursorKeys();
 
 	game.input.onDown.add(click, this);
@@ -160,9 +183,9 @@ function create() {
 
 function update() {
 
-	if(current_score < 5) {
-		if(ball && (ballType == 'ball1' || ballType == 'ball2' || ballType == 'ball3')) {
+	if(current_score < 12) {
 
+		if(ball && (ballType == 'ball1' || ballType == 'ball2' || ballType == 'ball3')) {
 			ball.bringToTop();
 
 			if (ball && ball.body.velocity.y > 0 && ball.body.y > 188 && !ball.isBelowHoop) {
@@ -188,6 +211,7 @@ function update() {
 					//current_best_score_text.text = high_score;
 				}
 				emoji = game.add.sprite(180, 100, emojiName);
+				emoji.bringToTop();
 				emoji.scale.setTo(0.25, 0.25);
 				moveInTween = game.add.tween(emoji).from( { y: 150 }, 500, Phaser.Easing.Elastic.Out, true);
 				fadeInTween = game.add.tween(emoji).from( { alpha: 0 }, 200, Phaser.Easing.Linear.None, true, 0, 0, false);
@@ -324,12 +348,48 @@ function launch(x_traj) {
 		ball.body.rotateRight(x_traj / 3);
 		//whoosh.play();
 		if(ballType == 'ball1' || ballType == 'ball2' || ballType == 'ball3') {
-			face.kill();
-			face = game.add.sprite(120, 50, 'Sakib2');
-			setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, 'Sakib1'); }, 900);
+			face.destroy();
+			if (current_score < 2) {
+				face = game.add.sprite(120, 50, 'Sakib2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 2 ? 'Taskeen1' : 'Sakib1'); }, 900);
+			} else if (current_score < 4) {
+				face = game.add.sprite(120, 50, 'Taskeen2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 4 ? 'Nidhi1' : 'Taskeen1'); }, 900);
+			} else if (current_score < 6) {
+				face = game.add.sprite(120, 50, 'Nidhi2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 6 ? 'Tousif1' : 'Nidhi1'); }, 900);
+			} else if (current_score < 8) {
+				face = game.add.sprite(120, 50, 'Tousif2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 8 ? 'Shoaib1' : 'Tousif1'); }, 900);
+			} else if (current_score < 10) {
+				face = game.add.sprite(120, 50, 'Shoaib2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 10 ? 'Navin1' : 'Shoaib1'); }, 900);
+			} else if (current_score < 12) {
+				face = game.add.sprite(120, 50, 'Navin2');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, current_score == 12 ? 'Navin1' : 'Navin1'); }, 900);
+			}
+			
 		} else if (ballType == 'ball4') {
-			face = game.add.sprite(120, 50, 'Sakib3');
-			setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Sakib1');}, 900);
+			face.destroy();
+			if (current_score < 2) {
+				face = game.add.sprite(120, 50, 'Sakib3');
+				setTimeout(function () { face.kill(); face = game.add.sprite(120, 50, 'Sakib1'); }, 900);	
+			} else if(current_score < 4) {
+				face = game.add.sprite(120, 50, 'Taskeen3');
+				setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Taskeen1');}, 900);
+			} else if(current_score < 6) {
+				face = game.add.sprite(120, 50, 'Nidhi3');
+				setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Nidhi1');}, 900);
+			} else if(current_score < 8) {
+				face = game.add.sprite(120, 50, 'Tousif3');
+				setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Tousif1');}, 900);
+			} else if(current_score < 10) {
+				face = game.add.sprite(120, 50, 'Shoaib3');
+				setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Shoaib1');}, 900);
+			} else if(current_score < 12) {
+				face = game.add.sprite(120, 50, 'Navin3');
+				setTimeout(function() { face.kill(); face = game.add.sprite(120, 50, 'Navin1');}, 900);
+			} 
 		}
 	}
 
