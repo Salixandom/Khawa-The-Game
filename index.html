@@ -122,8 +122,8 @@ function create() {
 	current_best_score_text = game.add.text(187, 312, '', { font: 'Arial', fontSize: '40px', fill: '#FF0000', align: 'center' }); // 300, 500
 
 	face = game.add.sprite(120, 50, 'Sakib1'); // 141, 100
-	left_rim = game.add.sprite(145, 184, 'side rim'); // 241, 296
-	right_rim = game.add.sprite(255, 184, 'side rim'); // 398, 296
+	left_rim = game.add.sprite(130, 184, 'side rim'); // 241, 296
+	right_rim = game.add.sprite(270, 184, 'side rim'); // 398, 296
 
 	game.physics.p2.enable([ left_rim, right_rim], false);
 
@@ -169,7 +169,7 @@ function update() {
 				ball.isBelowHoop = true;
 				ball.body.collideWorldBounds = false;
 				var rand = Math.floor(Math.random() * 5);
-				if (ball.body.x > 151 && ball.body.x < 249) {
+				if (ball.body.x > 130 && ball.body.x < 270) {
 					emojiName = "win" + rand;
 					current_score += 1;
 					current_score_text.text = current_score;
